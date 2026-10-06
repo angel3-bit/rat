@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Rat : gagne de l'argent gratuitement avec des sondages, des jeux, du cashback et des tickets de caisse.">
+<title>Rat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;800&family=Inter:wght@400;500;700&display=swap">
+<style>
+/* Mise en page : une colonne étroite façon fiche d'app, héros à gauche, maquette du téléphone à droite sur grand écran */
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --card: #1C070E;
+  --line: #4A1828;
+  --cherry: #D02249;
+  --wine: #6E1029;
+  --gold: #FFC21A;
+  --text: #FFF7EE;
+  --muted: #D6BCC3;
+  --display: "Rubik", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.55; padding-inline: 20px; padding-block: 0; }
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 64px; padding-block: 40px 56px; }
+header { display: flex; align-items: center; gap: 12px; }
+header .name { font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; }
+.badge { margin-left: auto; font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+.hero > * { min-width: 0; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 6vw, 64px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 18px; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--gold); }
+.lead { font-size: 18px; color: var(--muted); max-width: 34em; margin: 0 0 28px; }
+.stores { display: flex; flex-wrap: wrap; gap: 10px; }
+.store { background: var(--card); border: 1px solid var(--line); border-bottom-width: 4px; border-radius: 14px; padding: 10px 16px; font-family: var(--display); font-weight: 600; font-size: 15px; }
+.store small { display: block; font-family: var(--body); font-weight: 500; font-size: 11px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+/* Maquette de l'écran Gagner */
+.phone { justify-self: center; width: min(300px, 100%); background: #0a0306; border: 1px solid var(--line); border-radius: 40px; padding: 18px 14px 22px; display: grid; gap: 12px; box-shadow: 0 30px 80px -30px rgba(208,34,73,.45); }
+.bal { display: flex; align-items: center; gap: 10px; padding: 4px 6px; }
+.coin { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFE27A, var(--gold) 55%, #D99A00); box-shadow: 0 0 18px rgba(255,194,26,.55); }
+.bal b { font-family: var(--body); font-weight: 700; font-size: 22px; font-variant-numeric: tabular-nums; }
+.bar { height: 5px; border-radius: 5px; background: #5E2234; overflow: hidden; margin: 0 6px; }
+.bar i { display: block; height: 100%; width: 62%; background: var(--gold); border-radius: 5px; animation: fill 1.6s cubic-bezier(.2,.8,.2,1) both; }
+.boost { background: var(--wine); border-radius: 20px; border-bottom: 5px solid #3A0714; padding: 14px; position: relative; overflow: hidden; }
+.boost small { font-family: var(--display); font-weight: 600; font-size: 10px; letter-spacing: .12em; color: rgba(255,247,238,.8); }
+.boost strong { display: block; font-family: var(--display); font-weight: 800; font-size: 22px; margin-top: 2px; }
+.boost::after { content: ""; position: absolute; top: -40px; bottom: -40px; width: 50px; left: -80px; background: rgba(255,255,255,.16); transform: rotate(18deg); animation: shine 4s ease-in-out 1s infinite; }
+.quick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.quick span { aspect-ratio: 1; border-radius: 16px; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 10px; border: 1px solid; border-bottom-width: 4px; }
+.q1 { background: #43111F; border-color: var(--cherry) !important; color: #ff7d96; }
+.q2 { background: #3A2208; border-color: var(--gold) !important; color: var(--gold); }
+.q3 { background: #132A1C; border-color: #2BD47D !important; color: #4BE395; }
+.q4 { background: #3A2208; border-color: var(--gold) !important; color: var(--gold); }
+.goal { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; font-size: 13px; color: var(--muted); }
+.ring { width: 44px; height: 44px; border-radius: 50%; background: conic-gradient(var(--gold) 0 64%, #2A0B15 64% 100%); display: grid; place-items: center; flex: none; }
+.ring::before { content: ""; width: 32px; height: 32px; border-radius: 50%; background: var(--card); }
+.goal b { display: block; color: var(--text); font-size: 15px; }
+/* Façons de gagner */
+section h2 { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3.6vw, 36px); letter-spacing: -0.02em; margin: 0 0 22px; }
+.ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.way { background: var(--card); border: 1px solid var(--line); border-bottom-width: 4px; border-radius: 18px; padding: 18px; }
+.way h3 { font-family: var(--display); font-weight: 600; font-size: 18px; margin: 0 0 6px; }
+.way p { margin: 0; color: var(--muted); font-size: 15px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.fact { border-top: 2px solid var(--cherry); padding-top: 14px; }
+.fact b { font-family: var(--display); font-weight: 800; font-size: 28px; color: var(--gold); display: block; font-variant-numeric: tabular-nums; }
+.fact span { color: var(--muted); font-size: 15px; }
+.partners { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px; }
+.partners p { margin: 0; color: var(--muted); max-width: 70ch; }
+.partners h2 { font-size: 22px; margin-bottom: 10px; }
+footer { color: var(--muted); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 20px; border-top: 1px solid var(--line); padding-top: 20px; }
+@keyframes fill { from { width: 0; } }
+@keyframes shine { 0% { left: -80px; } 30%, 100% { left: 120%; } }
+@media (prefers-reduced-motion: reduce) { .bar i, .boost::after { animation: none; } }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } .wrap { gap: 48px; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true" style="border-radius:11px">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE27A"/><stop offset=".5" stop-color="#FFC21A"/><stop offset="1" stop-color="#E08E00"/></linearGradient></defs>
+      <rect width="100" height="100" fill="#7D0F2B"/>
+      <circle cx="50" cy="50" r="36" fill="#45071A"/><circle cx="50" cy="48" r="36" fill="url(#g)"/>
+      <circle cx="50" cy="48" r="29" fill="none" stroke="#C98200" stroke-width="2.5"/>
+      <path d="M30 58c0-10 8-18 19-18 4 0 7 1 10 3l9 4c3 1 4 4 1 5l-8 3c-3 5-8 8-14 8H34c-2 0-4-2-4-5z" fill="#1A1206"/>
+      <circle cx="46" cy="38" r="7.5" fill="#1A1206"/><circle cx="46" cy="38" r="3.5" fill="#E08E00"/><circle cx="58" cy="49" r="1.8" fill="#FFC21A"/>
+      <path d="M30 60c-6 0-9 3-9 7" fill="none" stroke="#1A1206" stroke-width="2.6" stroke-linecap="round"/>
+    </svg>
+    <span class="name">Rat</span>
+    <span class="badge">Bientôt sur iOS et Android</span>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Gagne de l'argent <em>gratuitement</em></h1>
+      <p class="lead">Rat paie en euros tes sondages, tes jeux, tes achats en cashback et tes tickets de caisse. Tu retires sur PayPal ou en carte cadeau.</p>
+      <div class="stores">
+        <span class="store"><small>Bientôt sur</small>App Store</span>
+        <span class="store"><small>Bientôt sur</small>Google Play</span>
+      </div>
+    </div>
+    <div class="phone" aria-label="Aperçu de l'écran Gagner">
+      <div class="bal"><span class="coin"></span><b>3,10 €</b></div>
+      <div class="bar"><i></i></div>
+      <div class="boost"><small>BOOST DE BIENVENUE</small><strong>×1,14 sur tes gains</strong></div>
+      <div class="quick"><span class="q1">Sondage</span><span class="q2">Jeux</span><span class="q3">Cashback</span><span class="q4">Vidéo</span></div>
+      <div class="goal"><span class="ring"></span><div><b>Objectif du jour</b>0,32 € sur 0,50 €</div></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Tout ce qui rapporte, dans une seule app</h2>
+    <div class="ways">
+      <div class="way"><h3>Sondages</h3><p>Donne ton avis sur des produits et des marques, payé à chaque questionnaire validé.</p></div>
+      <div class="way"><h3>Jeux</h3><p>Atteins un niveau dans un jeu mobile et reçois la récompense indiquée.</p></div>
+      <div class="way"><h3>Cashback et tickets</h3><p>Récupère une partie de tes achats en ligne, ou scanne tes tickets de courses.</p></div>
+      <div class="way"><h3>Vidéos et parrainage</h3><p>Regarde de courtes vidéos, et gagne 1 € quand un ami invité a gagné 5 €.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Simple et transparent</h2>
+    <div class="facts">
+      <div class="fact"><b>10 €</b><span>Retrait PayPal à partir de 10 €, cartes cadeaux dès 5 €.</span></div>
+      <div class="fact"><b>18+</b><span>Réservé aux majeurs, un compte par personne.</span></div>
+      <div class="fact"><b>0 €</b><span>Gratuit, sans abonnement ni frais de retrait.</span></div>
+    </div>
+  </section>
+
+  <section class="partners" lang="en">
+    <h2>For partners</h2>
+    <p>Rat is a rewards app for iOS and Android launching in France for users aged 18 and over. Users earn money by completing surveys, offers and games, cashback and receipt scans, and are paid via PayPal or gift cards. Offer walls are integrated inside the app with server-to-server callbacks, one account per user, and VPN and multi-account fraud checks. The app is built and currently in testing.</p>
+  </section>
+
+  <footer>
+    <span>© 2026 Rat</span>
+    <span>Application en cours de test, sortie prochaine.</span>
+  </footer>
+</div>
+</body>
+</html>
