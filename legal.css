@@ -1,0 +1,27 @@
+/* Pages légales : même palette que la page d'accueil, une colonne de lecture */
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --card: #1C070E;
+  --line: #4A1828;
+  --cherry: #D02249;
+  --gold: #FFC21A;
+  --text: #FFF7EE;
+  --muted: #D6BCC3;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+main { max-width: 720px; margin: 0 auto; padding-block: 32px 56px; }
+nav a { color: var(--muted); text-decoration: none; font-size: 14px; }
+h1 { font-family: "Rubik", system-ui, sans-serif; font-weight: 800; font-size: clamp(28px, 6vw, 40px); line-height: 1.1; letter-spacing: -0.02em; margin: 24px 0 6px; }
+.updated { color: var(--muted); font-size: 14px; margin: 0 0 32px; }
+h2 { font-family: "Rubik", system-ui, sans-serif; font-weight: 600; font-size: 20px; margin: 32px 0 8px; }
+p, li { color: var(--text); }
+ul { padding-left: 20px; }
+a { color: #ff7d96; }
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+.table { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 500; }
+footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--muted); font-size: 13px; }
